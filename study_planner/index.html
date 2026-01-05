@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Study Planner | Engineering Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <h1 data-i18n="appTitle">Smart Study Planner <span class="badge" data-i18n="algorithmBadge">ALGORITHM:
+                    GREEDY/INTERVAL</span></h1>
+            <p class="subtitle" data-i18n="subtitle">Computer Engineering Portfolio // Automated Conflict Resolution</p>
+        </div>
+        <div class="header-controls">
+            <select id="theme-selector" class="lang-select" style="margin-right: 10px;">
+                <option value="default">DARK</option>
+                <option value="light">LIGHT</option>
+                <option value="cyber">CYBER</option>
+            </select>
+            <select id="lang-selector" class="lang-select">
+                <option value="en">EN</option>
+                <option value="th">TH</option>
+                <option value="es">ES</option>
+                <option value="fr">FR</option>
+                <option value="de">DE</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Input Section -->
+        <section class="panel input-panel">
+            <h2 class="panel-title" data-i18n="panelInput">// INPUT_STREAM</h2>
+            <form id="add-subject-form">
+                <div class="form-group">
+                    <label for="subject" data-i18n="labelSubject">Subject Name</label>
+                    <input type="text" id="subject" placeholder="e.g. Data Structures" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="day" data-i18n="labelDay">Day</label>
+                        <select id="day" required>
+                            <option value="Monday" data-i18n="dayMon">Monday</option>
+                            <option value="Tuesday" data-i18n="dayTue">Tuesday</option>
+                            <option value="Wednesday" data-i18n="dayWed">Wednesday</option>
+                            <option value="Thursday" data-i18n="dayThu">Thursday</option>
+                            <option value="Friday" data-i18n="dayFri">Friday</option>
+                            <option value="Saturday" data-i18n="daySat">Saturday</option>
+                            <option value="Sunday" data-i18n="daySun">Sunday</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="start-time" data-i18n="labelStart">Start Time</label>
+                        <input type="time" id="start-time" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="end-time" data-i18n="labelEnd">End Time</label>
+                        <input type="time" id="end-time" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" data-i18n="btnAdd">ADD TO QUEUE</button>
+            </form>
+        </section>
+
+        <!-- Visualization Grid & Logs -->
+        <div class="dashboard-grid">
+
+            <!-- Raw Queue Panel -->
+            <section class="panel queue-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title" data-i18n="panelQueue">// RAW_QUEUE</h2>
+                    <span id="queue-count" class="counter">0 items</span>
+                </div>
+                <div class="list-container" id="raw-list">
+                    <!-- Items injected here -->
+                    <div class="empty-state" data-i18n="emptyQueue">No subjects in queue</div>
+                </div>
+                <div class="control-actions">
+                    <button id="btn-schedule" class="btn btn-accent" data-i18n="btnRun">RUN EXECUTION (GREEDY)</button>
+                    <button id="btn-clear" class="btn btn-danger" data-i18n="btnClear">FLUSH MEMORY</button>
+                </div>
+            </section>
+
+            <!-- Algorithm Logic Log -->
+            <section class="panel log-panel">
+                <h2 class="panel-title" data-i18n="panelLog">// SYSTEM_LOG & ALGORITHM EXPLANATION</h2>
+                <div class="log-container" id="system-log">
+                    <div class="log-entry system-msg">
+                        <span class="timestamp">INIT</span>
+                        <span class="msg" data-i18n="logInit">System ready. Waiting for input...</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Final Schedule Visualization -->
+        <section class="panel output-panel">
+            <h2 class="panel-title" data-i18n="panelOutput">// OPTIMIZED_SCHEDULE_OUTPUT</h2>
+            <div class="timetable-grid" id="weekly-timetable">
+                <!-- Grid columns generated by JS or static -->
+                <div class="day-col" data-day="Monday">
+                    <h3 data-i18n="dayMonShort">MON</h3>
+                    <div class="slots"></div>
+                </div>
+                <div class="day-col" data-day="Tuesday">
+                    <h3 data-i18n="dayTueShort">TUE</h3>
+                    <div class="slots"></div>
+                </div>
+                <div class="day-col" data-day="Wednesday">
+                    <h3 data-i18n="dayWedShort">WED</h3>
+                    <div class="slots"></div>
+                </div>
+                <div class="day-col" data-day="Thursday">
+                    <h3 data-i18n="dayThuShort">THU</h3>
+                    <div class="slots"></div>
+                </div>
+                <div class="day-col" data-day="Friday">
+                    <h3 data-i18n="dayFriShort">FRI</h3>
+                    <div class="slots"></div>
+                </div>
+                <div class="day-col" data-day="Saturday">
+                    <h3 data-i18n="daySatShort">SAT</h3>
+                    <div class="slots"></div>
+                </div>
+                <div class="day-col" data-day="Sunday">
+                    <h3 data-i18n="daySunShort">SUN</h3>
+                    <div class="slots"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Chat Widget -->
+    <div class="chat-widget" id="chat-widget">
+        <button id="chat-toggle-btn" class="chat-toggle-btn">
+            <span class="icon">🤖</span> AI HELPER
+        </button>
+        <div class="chat-window hidden" id="chat-window">
+            <div class="chat-header">
+                <h3>// AI_ASSISTANT_V1.0</h3>
+                <div class="chat-controls">
+                    <button id="chat-settings-btn" class="icon-btn">⚙️</button>
+                    <button id="chat-close-btn" class="close-btn">×</button>
+                </div>
+            </div>
+
+            <!-- Settings Panel Overlay -->
+            <div class="settings-panel hidden" id="chat-settings-panel">
+                <h4>API CONFIGURATION</h4>
+                <div class="form-group">
+                    <label>API Endpoint</label>
+                    <input type="text" id="api-url" value="https://openrouter.ai/api/v1/chat/completions"
+                        placeholder="https://openrouter.ai/api/v1/chat/completions">
+                </div>
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="password" id="api-key"
+                        value="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"
+                        placeholder="sk-...">
+                </div>
+                <div class="form-group">
+                    <label>Model Name</label>
+                    <input type="text" id="api-model" value="deepseek/deepseek-r1-0528:free"
+                        placeholder="deepseek/deepseek-r1-0528:free">
+                </div>
+                <div class="settings-actions">
+                    <button id="save-settings-btn" class="btn btn-primary">SAVE</button>
+                    <button id="cancel-settings-btn" class="btn btn-danger">CANCEL</button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chat-messages">
+                <div class="message bot-message">
+                    Hello! I am your Algorithm Assistant
+                </div>
+            </div>
+            <form id="chat-form" class="chat-input-area">
+                <input type="text" id="chat-input" placeholder="Type command..." autocomplete="off">
+                <button type="submit">></button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
